@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Hola from "@/components/hello";
+import Main from "@/components/index";
 
-ReactDOM.render(<Hola />, document.getElementById("root"));
+ReactDOM.render(<Main />, document.getElementById("root"));
