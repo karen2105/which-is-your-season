@@ -1,17 +1,19 @@
 import React from 'react';
 
-const SeasonPage = ({type}) => {
+const SeasonPage = ({type, location}) => {
+  let message = '';
+  if(type== 'winter' || type== 'winter') {
+      message = `It is ${type} time in your location`;
+  } else {
+    message = "Oops, we don't where you are in this moment, but this is how British summer looks :D";
+  }
 
-  if(type== 'winter') {
-    return  <div>Winter</div>
-  }
-  if (type== 'summer') {
-    return <div>Summer</div>
-  }
-  if (type== 'error') {
-    return <div>Error</div>
-  }
-  return 'OMG';
+  return (
+    <div className="season-page-message">
+      <span>{message}</span>
+      <span>{location ? `(${location})` : ''}</span>
+    </div>
+  );
 }
 
 export default SeasonPage;

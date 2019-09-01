@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import SeasonPage from '@/components/season-page';
+import Loading from '@/components/loading';
+import "@/style/main.scss";
 
 class Hello extends Component {
   constructor(props) {
@@ -13,15 +15,13 @@ class Hello extends Component {
   componentDidMount() {
     // Loading current position
     navigator.geolocation.getCurrentPosition(
-      position => this.setState({lat: position.coords.latitude}),
+      position => this.setState({lat: position.coords.latitude, loading: false}),
       error => this.setState({error: true}),
     );
 
     //Get date
     const month = new Date().getMonth() + 1;
     this.setState({month: month});
-
-    this.setState({loading: false});
   }
 
   determineSeason(lat, month) {
@@ -29,11 +29,12 @@ class Hello extends Component {
     let place = ''; 
 
     //If latitud is greater than 0 (north)
-    // if it is during first term (months 3-8) and  = Summer
+    // if it is during first term (months 3-8)  = Summer
     if(lat > 0) {
       if(month > 3 && month <= 8) {
         return 'summer';
-      } else {
+      } 
+      else {
         return 'winter';
       }
     } 
@@ -43,7 +44,7 @@ class Hello extends Component {
       if(month > 3 && month <= 8) {
         return 'winter';
       } else {
-        return 'summer';
+        return 'summer'; 
       }
     }
   }
@@ -56,7 +57,7 @@ class Hello extends Component {
     const season = this.determineSeason(this.state.lat, this.state.month);
 
     if(this.state.loading) {
-      return 'Loading';
+      <Loading />
     } else {
       return (
         <div className="which-season-wrapper">
