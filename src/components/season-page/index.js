@@ -1,8 +1,12 @@
 import React from 'react';
 
+import {SPRING, SUMMER, AUTUMM, WINTER} from '@/constants/seasons';
+
 const SeasonPage = ({type, location}) => {
   let message = '';
-  if(type== 'winter' || type== 'winter') {
+  const seasons = [SPRING, SUMMER, AUTUMM, WINTER];
+
+  if(seasons.includes(type)) {
       message = `It is ${type} time in your location`;
   } else {
     message = "Oops, we don't where you are in this moment, but this is how British summer looks :D";

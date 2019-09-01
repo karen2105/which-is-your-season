@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
+import {SPRING, SUMMER, AUTUMM, WINTER} from '@/constants/seasons';
 import SeasonPage from '@/components/season-page';
 import Loading from '@/components/loading';
-import "@/style/main.scss";
+import '@/style/main.scss';
 
-class Hello extends Component {
+class MainComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -25,28 +26,41 @@ class Hello extends Component {
   }
 
   determineSeason(lat, month) {
-    let term = ''; 
-    let place = ''; 
+    let season = '';
 
-    //If latitud is greater than 0 (north)
-    // if it is during first term (months 3-8)  = Summer
+    //These seasons take into account meteorological dates
+    const trimester1 = [3, 4, 5];
+    const trimester2 = [6, 7, 8];
+    const trimester3 = [9, 10, 11];
+    const trimester4 = [12, 1, 2];
+
+    //If latitud is greater than 0 (north) 
     if(lat > 0) {
-      if(month > 3 && month <= 8) {
-        return 'summer';
-      } 
-      else {
-        return 'winter';
+      if(trimester1.includes(month)) {
+        season = SPRING;
+      } else if(trimester2.includes(month)){
+        season = SUMMER;
+      } else if(trimester3.includes(month)){
+        season = AUTUMM;
+      } else if(trimester4.includes(month)){
+        season = WINTER;
       }
     } 
 
-    //If latitud is less than 0 (south)
-    if(lat <= 0) {
-      if(month > 3 && month <= 8) {
-        return 'winter';
-      } else {
-        return 'summer'; 
+    //If latitud is greater than 0 (north) 
+    if(lat < 0) {
+      if(trimester1.includes(month)) {
+        season = AUTUMM;
+      } else if(trimester2.includes(month)){
+        season = WINTER;
+      } else if(trimester3.includes(month)){
+        season = SPRING;
+      } else if(trimester4.includes(month)){
+        season = SUMMER;
       }
-    }
+    } 
+
+    return season;
   }
 
   render() {
@@ -57,7 +71,7 @@ class Hello extends Component {
     const season = this.determineSeason(this.state.lat, this.state.month);
 
     if(this.state.loading) {
-      <Loading />
+      return <Loading />
     } else {
       return (
         <div className="which-season-wrapper">
@@ -68,4 +82,4 @@ class Hello extends Component {
   }
 }
 
-export default Hello;
+export default MainComponent;
