@@ -9,16 +9,20 @@ class MainComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { lat: '', error: false, month: 0, loading: true };
+    this.state = { lat: '', country: '', error: false, month: 0, loading: true };
     this.determineSeason = this.determineSeason.bind(this);
   }
 
   componentDidMount() {
     // Loading current position
-    navigator.geolocation.getCurrentPosition(
-      position => this.setState({lat: position.coords.latitude, loading: false}),
-      error => this.setState({error: true}),
-    );
+    fetch('http://ip-api.com/json/?fields=status,message,country,lat,query')
+    .then(res => res.json())
+    .then(result => {
+      this.setState({lat: result.lat, country: result.country, loading: false})
+    },
+    error => {
+      this.setState({error: true, loading: false})
+    });
 
     //Get date
     const month = new Date().getMonth() + 1;
@@ -75,7 +79,7 @@ class MainComponent extends Component {
     } else {
       return (
         <div className="which-season-wrapper">
-          <SeasonPage type={season} />
+          <SeasonPage currentSeason={season} country={this.state.country} />
         </div>
       );
     }
