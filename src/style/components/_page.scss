@@ -74,9 +74,15 @@ body {
           border: 1px solid white;
           background-color: transparent;
           cursor: pointer;
+          transition: 300ms all ease;
 
           &:hover {
             background-color: rgba(white, 0.3);
+            font-weight: bold;
+          }
+
+          &:focus {
+            background-color: rgba(white, 0.1);
             font-weight: bold;
           }
         }

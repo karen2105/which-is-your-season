@@ -15,6 +15,7 @@ class SeasonPage extends Component {
       currentSeason: this.props.currentSeason, 
       country: this.props.country,
       video: this.getVideoLink(this.props.currentSeason),
+      message2: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -50,7 +51,8 @@ class SeasonPage extends Component {
   handleClick(season) {
     this.setState({
       currentSeason: season, 
-      video: this.getVideoLink(season)
+      video: this.getVideoLink(season),
+      message2: true,
     });
   }
 
@@ -61,7 +63,9 @@ class SeasonPage extends Component {
     let loopState = currentSeason !== 'autumm' ? false : true;
 
     if(seasons.includes(currentSeason)) {
-        message = `Amazing ${currentSeason} time in ${country == 'United Kingdom' ? `the ${country}` : country }, isn't it?.`;
+        message = !this.state.message2 
+          ? `Amazing ${currentSeason} time in ${country == 'United Kingdom' ? `the ${country}` : country }, isn't it?.`
+          : `Now, we're counting down for ${currentSeason} time in ${country == 'United Kingdom' ? `the ${country}` : country }!`;
     } else {
       message = "Oops, we don't where you are in this moment, but this is how British summer looks :D";
     }
