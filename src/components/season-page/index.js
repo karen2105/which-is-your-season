@@ -13,7 +13,7 @@ class SeasonPage extends Component {
 
     this.state = { 
       currentSeason: this.props.currentSeason, 
-      country: this.props.country,
+      country: this.props.country ? this.props.country : '',
       video: this.getVideoLink(this.props.currentSeason),
       message2: false,
     };
@@ -86,8 +86,11 @@ class SeasonPage extends Component {
 
         <div className="season-page-message">
           <span className="message-min-text">{message}</span>
+          {
+            currentSeason === 'error' ? <span className="small-print">Try refreshing your page</span> : ''
+          }
           <div className="season-page-buttons-wrapper">
-            <p>Check out other seasons</p>
+            <p>Check other seasons out</p>
             {this.addButtons(currentSeason)}
           </div>
         </div>

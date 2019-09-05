@@ -1,8 +1,15 @@
+.lds-heart-wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #ffefef;
+}
+
 .lds-heart {
-  display: inline-block;
   position: relative;
   width: 64px;
   height: 64px;
+  margin: 30vh auto auto;
   transform: rotate(45deg);
   transform-origin: 32px 32px;
 }

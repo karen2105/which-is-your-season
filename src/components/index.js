@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import {SPRING, SUMMER, AUTUMM, WINTER} from '@/constants/seasons';
 import SeasonPage from '@/components/season-page';
 import Loading from '@/components/loading';
-import '@/style/main.scss';
 
 class MainComponent extends Component {
   constructor(props) {
@@ -15,10 +14,10 @@ class MainComponent extends Component {
 
   componentDidMount() {
     // Loading current position
-    fetch('http://ip-api.com/json/?fields=status,message,country,lat,query')
+    fetch('http://api.ipstack.com/check?access_key=9c931dc3d6e35fcd0c782d4d1475b21e')
     .then(res => res.json())
     .then(result => {
-      this.setState({lat: result.lat, country: result.country, loading: false})
+      this.setState({lat: result.latitude, country: result.country_name, loading: false})
     },
     error => {
       this.setState({error: true, loading: false})
@@ -69,7 +68,11 @@ class MainComponent extends Component {
 
   render() {
     if(this.state.error) {
-      return <SeasonPage type='error' />;
+      return (
+        <div className="which-season-wrapper">
+          <SeasonPage currentSeason='error' />
+        </div>
+        );
     }
 
     const season = this.determineSeason(this.state.lat, this.state.month);
